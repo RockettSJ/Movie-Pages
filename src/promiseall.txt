@@ -1,0 +1,23 @@
+ const apiKey = process.env.REACT_APP_MY_API_KEY;
+    const baseURL = "https://api.themoviedb.org/3/movie/";
+    const sortLangPage = "&language=en-US&page=1";
+    const popular = "popular?api_key=";
+    const popularMoviesFetchString = baseURL + popular + apiKey + sortLangPage;
+    const getPopularMovies = fetch(popularMoviesFetchString);
+
+    Promise.all([getPopularMovies])
+      .then((responses) => {
+        //Get a JSON object from each of the responses
+        return Promise.all(
+          responses.map((response) => {
+            return response.json();
+          })
+        );
+      })
+      .then((data) => {
+        console.log(data);
+        this.setState({ popularMovies: data[0].results });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
