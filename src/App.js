@@ -19,7 +19,7 @@ class App extends React.Component {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/in-cinemas-now" exact>
+                  <NavLink to="/now-playing" exact>
                     Now Playing
                   </NavLink>
                 </li>

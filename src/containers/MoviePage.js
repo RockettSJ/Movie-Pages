@@ -23,7 +23,16 @@ class MoviePage extends React.Component {
 
   render() {
     const movieCast_Mapped = this.state.movieCast.map((member) => {
-      return <CastMember key={member.id} name={member.name} />;
+      const profilePhoto =
+        "https://image.tmdb.org/t/p/w500/" + member.profile_path;
+
+      return (
+        <CastMember
+          key={member.cast_id}
+          photo={profilePhoto}
+          name={member.name}
+        />
+      );
     });
 
     let moviePage = <p>no props nor state were passed</p>;
@@ -31,7 +40,16 @@ class MoviePage extends React.Component {
       moviePage = <p>Loading...</p>;
     }
     if (this.state.movieDetails) {
-      moviePage = <h1>{this.state.movieDetails.title}</h1>;
+      const posterSrc =
+        "https://image.tmdb.org/t/p/w500/" +
+        this.state.movieDetails.poster_path;
+
+      moviePage = (
+        <div className="movie-page-container">
+          <img className="img" src={posterSrc} alt="Movie Poster" />
+          <h1>{this.state.movieDetails.title}</h1>
+        </div>
+      );
     }
     return (
       <div>
