@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 import PopularMovies from "./containers/PopularMovies";
 import "./App.css";
+import MoviePage from "./containers/MoviePage";
 
 class App extends React.Component {
   render() {
@@ -12,12 +13,15 @@ class App extends React.Component {
             <nav>
               <ul>
                 <li>
-                  <Link to="/">Popular</Link>
+                  <NavLink to="/" exact>
+                    Popular
+                  </NavLink>
                 </li>
               </ul>
             </nav>
           </header>
           <Route path="/" exact component={PopularMovies} />
+          <Route path="/:id" exact component={MoviePage} />
         </div>
       </BrowserRouter>
     );

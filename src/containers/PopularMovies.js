@@ -1,5 +1,6 @@
 import React from "react";
 import { getPopularMovies } from "../api/getPopularMovies";
+import { Link } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 
 class PopularMovies extends React.Component {
@@ -8,24 +9,17 @@ class PopularMovies extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     getPopularMovies().then((popularMoviesData) => {
       this.setState({ popularMovies: popularMoviesData });
     });
   }
 
-  movieSelectedHandler = (id) => {
-    this.setState({ selectedMovieId: id });
-  };
-
   render() {
-    const popularMovies_Mapped = this.state.popularMovies.map((popular) => {
+    const popularMovies_Mapped = this.state.popularMovies.map((movie) => {
       return (
-        <MovieCard
-          key={popular.id}
-          title={popular.title}
-          clicked={() => this.movieSelectedHandler(popular.id)}
-        />
+        <Link to={"/" + movie.id} key={movie.id}>
+          <MovieCard title={movie.title} />
+        </Link>
       );
     });
     return (
