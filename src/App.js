@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
 import PopularMovies from "./containers/PopularMovies";
+import NowPlaying from "./containers/NowPlaying";
 import MoviePage from "./containers/MoviePage";
 import "./App.css";
 
@@ -17,11 +18,20 @@ class App extends React.Component {
                     Popular
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/in-cinemas-now" exact>
+                    In Cinemas Now
+                  </NavLink>
+                </li>
               </ul>
             </nav>
           </header>
-          <Route path="/" exact component={PopularMovies} />
-          <Route path="/:id" exact component={MoviePage} />
+          {/*Switch will ensure that only one Route is loaded at a time when clicked, preventing a previous component from being rendered to the new route*/}
+          <Switch>
+            <Route path="/" exact component={PopularMovies} />
+            <Route path="/in-cinemas-now" exact component={NowPlaying} />
+            <Route path="/:id" exact component={MoviePage} />
+          </Switch>
         </div>
       </BrowserRouter>
     );
