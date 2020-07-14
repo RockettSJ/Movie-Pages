@@ -20,7 +20,7 @@ class App extends React.Component {
                 </li>
                 <li>
                   <NavLink to="/in-cinemas-now" exact>
-                    In Cinemas Now
+                    Now Playing
                   </NavLink>
                 </li>
               </ul>
@@ -29,7 +29,7 @@ class App extends React.Component {
           {/*Switch will ensure that only one Route is loaded at a time when clicked, preventing a previous component from being rendered to the new route*/}
           <Switch>
             <Route path="/" exact component={PopularMovies} />
-            <Route path="/in-cinemas-now" exact component={NowPlaying} />
+            <Route path="/now-playing" exact component={NowPlaying} />
             <Route path="/:id" exact component={MoviePage} />
           </Switch>
         </div>
