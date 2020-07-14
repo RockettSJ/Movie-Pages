@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
 import PopularMovies from "./containers/PopularMovies";
-import "./App.css";
 import MoviePage from "./containers/MoviePage";
+import "./App.css";
 
 class App extends React.Component {
   render() {

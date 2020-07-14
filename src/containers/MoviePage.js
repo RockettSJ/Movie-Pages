@@ -1,4 +1,5 @@
 import React from "react";
+import { getThisClickedMovie } from "../api/getThisClickedMovie";
 
 class MoviePage extends React.Component {
   state = {
@@ -7,19 +8,7 @@ class MoviePage extends React.Component {
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      const getThisMovie = async () => {
-        const apiKey = process.env.REACT_APP_MY_API_KEY;
-        const baseURL = "https://api.themoviedb.org/3/movie/";
-        const movieID = this.props.match.params.id + "?api_key=";
-        const lang = "&language=en-US";
-
-        const getThisMovieFetchString = baseURL + movieID + apiKey + lang;
-        const response_thisMovie = await fetch(getThisMovieFetchString);
-        const thisMovieData = await response_thisMovie.json();
-        return thisMovieData;
-      };
-
-      getThisMovie().then((movieData) => {
+      getThisClickedMovie(this.props.match.params.id).then((movieData) => {
         this.setState({ movieDetails: movieData });
       });
     }
