@@ -1,3 +1,7 @@
-.App a.active {
-    color: black;
+.App {
+    background-color: #2d3436;
+}
+
+a:hover {
+    text-decoration: none;
 }
