@@ -33,6 +33,9 @@ class MoviePage extends React.Component {
         (this.state.movieDetails.title &&
           this.state.movieDetails.id !== +this.props.match.params.id)
       ) {
+        //Prevent page from automatically jumping down on some page renders
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
         getThisClickedMovie(this.props.match.params.id).then((movieData) => {
           this.setState({ movieDetails: movieData });
         });
@@ -46,9 +49,6 @@ class MoviePage extends React.Component {
         getSimilarMovies(this.props.match.params.id).then((similar) => {
           this.setState({ similarMovies: similar });
         });
-
-        //Prevent page from automatically jumping down on some page renders
-        window.scrollTo(0, 0);
       }
     }
   }
@@ -102,7 +102,7 @@ class MoviePage extends React.Component {
         backgroundImage:
           "linear-gradient" +
           "(to right, rgba(82,82,82, .8)," +
-          " rgba(192,57,43, .7)), " +
+          " rgba(30,55,153, .7)), " +
           "url(" +
           backdropSrc +
           ")",
