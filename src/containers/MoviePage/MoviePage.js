@@ -17,7 +17,9 @@ class MoviePage extends React.Component {
       });
 
       getMovieCast(this.props.match.params.id).then((cast) => {
-        this.setState({ movieCast: cast });
+        //FOR NOW, just limit the number of cast members displayed. TEMPORARY until a better solution is found
+        const slicedCast = cast.slice(0, 7);
+        this.setState({ movieCast: slicedCast });
       });
     }
   }
@@ -34,6 +36,7 @@ class MoviePage extends React.Component {
           key={member.cast_id}
           photo={profilePhoto}
           name={member.name}
+          char={member.character}
         />
       );
     });
@@ -56,7 +59,7 @@ class MoviePage extends React.Component {
         backgroundImage:
           "linear-gradient" +
           "(to right, rgba(82,82,82, .8)," +
-          " rgba(6,82,221, .7)), " +
+          " rgba(192,57,43, .7)), " +
           "url(" +
           backdropSrc +
           ")",
@@ -91,28 +94,30 @@ class MoviePage extends React.Component {
           <div className="backdrop-bg py-5" style={backdropStyle}>
             <div className="container pt-3">
               <div className="row justify-content-center">
-                <div className="col-lg-6 poster-container">
+                <div className="col-lg-3 poster-container">
                   <div className="poster-card card">
                     <img
-                      className="card-img-top"
+                      className="card-img-top poster-img"
                       src={posterSrc}
                       alt="Movie Poster"
                     />
                   </div>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-9">
                   <h2>{this.state.movieDetails.title}</h2>
                   <div>
                     <em>{this.state.movieDetails.tagline}</em>
                   </div>
                   <div className="pt-3">
                     <div className="font-weight-bold text-uppercase">Plot</div>
-                    <p className="mb-0">{this.state.movieDetails.overview}</p>
+                    <p className="movie-overview">
+                      {this.state.movieDetails.overview}
+                    </p>
                   </div>
-                  <div className="pt-3">
-                    <div className="font-weight-bold text-uppercase">Genre</div>
-                    <ul className="list-inline mb-0">{genresMapped}</ul>
+                  <div className="font-weight-bold text-uppercase pt-3">
+                    Genre
                   </div>
+                  <ul className="list-inline mb-0">{genresMapped}</ul>
                   <div className="movie-stats d-flex justify-content-between align-items-center pt-3">
                     <div>Release: {this.state.movieDetails.release_date}</div>
                     <div>
@@ -130,9 +135,14 @@ class MoviePage extends React.Component {
     return (
       <div className="movie-page-container">
         {moviePage}
-        <div className="container">
-          <div className="d-flex flex-wrap justify-content-md-between justify-content-center">
-            {movieCast_Mapped}
+        <div className="bg-light text-dark cast-list py-3">
+          <div className="container">
+            <h5 className="text-uppercase text-center font-weight-bold py-1">
+              Main Cast
+            </h5>
+            <div className="d-flex flex-wrap justify-content-md-between justify-content-center">
+              {movieCast_Mapped}
+            </div>
           </div>
         </div>
       </div>

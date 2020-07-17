@@ -1,7 +1,7 @@
 .movie-card {
-    width: 12rem;
+    max-width: 12rem;
 }
 
-.movie-card .card-body {
+.movie-card {
     min-height: 120px;
 }
