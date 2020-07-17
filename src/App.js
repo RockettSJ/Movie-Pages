@@ -20,7 +20,7 @@ class App extends React.Component {
                 <Route path="/" exact component={PopularMovies} />
                 <Route path="/now-playing" exact component={NowPlaying} />
                 <Route path="/upcoming" exact component={UpcomingMovies} />
-                <Route path="/:id" exact component={MoviePage} />
+                <Route path="/:id" component={MoviePage} />
               </Switch>
             </main>
           </div>

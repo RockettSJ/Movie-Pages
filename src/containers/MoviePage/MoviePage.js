@@ -1,26 +1,55 @@
 import React from "react";
 import { getThisClickedMovie } from "../../api/getThisClickedMovie";
 import { getMovieCast } from "../../api/getMovieCast";
+import { getSimilarMovies } from "../../api/getSimilarMovies";
 import CastMember from "../../components/CastMember/CastMember";
 import "./MoviePage.css";
+import MovieCard from "../../components/MovieCard/MovieCard";
+import { Link } from "react-router-dom";
 
 class MoviePage extends React.Component {
   state = {
     movieDetails: [],
     movieCast: [],
+    similarMovies: [],
   };
 
   componentDidMount() {
-    if (this.props.match.params.id) {
-      getThisClickedMovie(this.props.match.params.id).then((movieData) => {
-        this.setState({ movieDetails: movieData });
-      });
+    this.loadData();
+  }
 
-      getMovieCast(this.props.match.params.id).then((cast) => {
-        //FOR NOW, just limit the number of cast members displayed. TEMPORARY until a better solution is found
-        const slicedCast = cast.slice(0, 7);
-        this.setState({ movieCast: slicedCast });
-      });
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  //This function (along with the conditional checks)
+  // is the solution to make the movie page re-render
+  // when a "similar movie" link is clicked
+  // as it needs to process the new Router props inside componentDidUpdate()
+  loadData() {
+    if (this.props.match.params.id) {
+      if (
+        !this.state.movieDetails.title ||
+        (this.state.movieDetails.title &&
+          this.state.movieDetails.id !== +this.props.match.params.id)
+      ) {
+        getThisClickedMovie(this.props.match.params.id).then((movieData) => {
+          this.setState({ movieDetails: movieData });
+        });
+
+        getMovieCast(this.props.match.params.id).then((cast) => {
+          //FOR NOW, just limit the number of cast members displayed. TEMPORARY until a better solution is found
+          const slicedCast = cast.slice(0, 7);
+          this.setState({ movieCast: slicedCast });
+        });
+
+        getSimilarMovies(this.props.match.params.id).then((similar) => {
+          this.setState({ similarMovies: similar });
+        });
+
+        //Prevent page from automatically jumping down on some page renders
+        window.scrollTo(0, 0);
+      }
     }
   }
 
@@ -38,6 +67,20 @@ class MoviePage extends React.Component {
           name={member.name}
           char={member.character}
         />
+      );
+    });
+
+    const similarMovies_Mapped = this.state.similarMovies.map((movie) => {
+      const posterSrc = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+      return (
+        <Link to={"/" + movie.id} key={movie.id}>
+          <MovieCard
+            title={movie.title}
+            poster={posterSrc}
+            released={movie.release_date}
+            avgVote={movie.vote_average}
+          />
+        </Link>
       );
     });
 
@@ -143,6 +186,14 @@ class MoviePage extends React.Component {
             <div className="d-flex flex-wrap justify-content-md-between justify-content-center">
               {movieCast_Mapped}
             </div>
+          </div>
+        </div>
+        <div className="container py-3">
+          <h5 className="text-uppercase text-center font-weight-bold py-1">
+            Similar Movies
+          </h5>
+          <div className="d-flex flex-wrap justify-content-md-between justify-content-center">
+            {similarMovies_Mapped}
           </div>
         </div>
       </div>
