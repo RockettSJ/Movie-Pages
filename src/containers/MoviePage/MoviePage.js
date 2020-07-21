@@ -2,10 +2,10 @@ import React from "react";
 import { getThisClickedMovie } from "../../api/getThisClickedMovie";
 import { getMovieCast } from "../../api/getMovieCast";
 import { getSimilarMovies } from "../../api/getSimilarMovies";
-import CastMember from "../../components/CastMember/CastMember";
-import "./MoviePage.css";
-import MovieCard from "../../components/MovieCard/MovieCard";
 import { Link } from "react-router-dom";
+import CastMember from "../../components/CastMember/CastMember";
+import MovieCard from "../../components/MovieCard/MovieCard";
+import "./MoviePage.css";
 
 class MoviePage extends React.Component {
   state = {
@@ -19,6 +19,8 @@ class MoviePage extends React.Component {
   }
 
   componentDidUpdate() {
+    //Prevent page from automatically jumping down on some page renders
+    window.scrollTo({ top: 0, behavior: "smooth" });
     this.loadData();
   }
 
@@ -33,9 +35,6 @@ class MoviePage extends React.Component {
         (this.state.movieDetails.title &&
           this.state.movieDetails.id !== +this.props.match.params.id)
       ) {
-        //Prevent page from automatically jumping down on some page renders
-        window.scrollTo({ top: 0, behavior: "smooth" });
-
         getThisClickedMovie(this.props.match.params.id).then((movieData) => {
           this.setState({ movieDetails: movieData });
         });
@@ -86,7 +85,7 @@ class MoviePage extends React.Component {
 
     let moviePage = "";
     if (this.props.match.params.id) {
-      moviePage = <p>Loading...</p>;
+      moviePage = <p className="text-center">Loading...</p>;
     }
     //Format all data and assign variables here
     if (this.state.movieDetails.title) {
