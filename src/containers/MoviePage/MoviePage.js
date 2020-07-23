@@ -1,8 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { getThisClickedMovie } from "../../api/getThisClickedMovie";
 import { getMovieCast } from "../../api/getMovieCast";
 import { getSimilarMovies } from "../../api/getSimilarMovies";
-import { Link } from "react-router-dom";
 import CastMember from "../../components/CastMember/CastMember";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import "./MoviePage.css";
@@ -40,9 +43,9 @@ class MoviePage extends React.Component {
         });
 
         getMovieCast(this.props.match.params.id).then((cast) => {
-          //FOR NOW, just limit the number of cast members displayed. TEMPORARY until a better solution is found
-          const slicedCast = cast.slice(0, 7);
-          this.setState({ movieCast: slicedCast });
+          // //FOR NOW, just limit the number of cast members displayed. TEMPORARY until a better solution is found
+          // const slicedCast = cast.slice(0, 7);
+          this.setState({ movieCast: cast });
         });
 
         getSimilarMovies(this.props.match.params.id).then((similar) => {
@@ -53,6 +56,44 @@ class MoviePage extends React.Component {
   }
 
   render() {
+    const sliderSettings = {
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 7,
+      slidesToScroll: 7,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 6,
+            slidesToScroll: 6,
+          },
+        },
+        {
+          breakpoint: 991,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+          },
+        },
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+          },
+        },
+        {
+          breakpoint: 450,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          },
+        },
+      ],
+    };
+
     const movieCast_Mapped = this.state.movieCast.map((member) => {
       if (member.profile_path) {
         var profilePhoto =
@@ -180,10 +221,10 @@ class MoviePage extends React.Component {
         <div className="bg-light text-dark cast-list py-3">
           <div className="container">
             <h5 className="text-uppercase text-center font-weight-bold py-1">
-              Main Cast
+              Cast
             </h5>
-            <div className="d-flex flex-wrap justify-content-md-between justify-content-center">
-              {movieCast_Mapped}
+            <div className="d-block pb-5">
+              <Slider {...sliderSettings}>{movieCast_Mapped}</Slider>
             </div>
           </div>
         </div>
