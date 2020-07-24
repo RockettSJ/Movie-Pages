@@ -22,8 +22,6 @@ class MoviePage extends React.Component {
   }
 
   componentDidUpdate() {
-    //Prevent page from automatically jumping down on some page renders
-    window.scrollTo({ top: 0, behavior: "smooth" });
     this.loadData();
   }
 
@@ -38,6 +36,9 @@ class MoviePage extends React.Component {
         (this.state.movieDetails.title &&
           this.state.movieDetails.id !== +this.props.match.params.id)
       ) {
+        //Prevent page from automatically jumping down on some page renders
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
         getThisClickedMovie(this.props.match.params.id).then((movieData) => {
           this.setState({ movieDetails: movieData });
         });
