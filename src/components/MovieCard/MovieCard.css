@@ -8,6 +8,11 @@
     animation-duration: 1s;
 }
 
+.movie-card:hover {
+    transform: translateY(-5px);
+    transition: transform .2s ease-in-out;
+}
+
 @keyframes fadeInOpacity {
     0% {
         opacity: 0;
@@ -16,3 +21,4 @@
         opacity: 1;
     }
 }
+
