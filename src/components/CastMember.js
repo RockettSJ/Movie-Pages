@@ -1,5 +1,4 @@
 import React from "react";
-import "./CastMember.css";
 
 const CastMember = (props) => {
   return (

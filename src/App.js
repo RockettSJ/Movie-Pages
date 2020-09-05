@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Movies from "./containers/Movies";
-import MoviePage from "./containers/MoviePage/MoviePage";
-import Footer from "./components/Footer/Footer";
-import "./App.css";
+import Movies from "./views/MovieList";
+import MoviePage from "./views/MoviePage";
+import Footer from "./components/Footer";
+import "./App.scss";
 
 class App extends React.Component {
   render() {

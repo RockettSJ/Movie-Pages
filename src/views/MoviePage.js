@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getThisClickedMovie } from "../../api/getThisClickedMovie";
-import { getMovieCast } from "../../api/getMovieCast";
-import { getSimilarMovies } from "../../api/getSimilarMovies";
-import CastMember from "../../components/CastMember/CastMember";
-import MovieCard from "../../components/MovieCard/MovieCard";
-import "./MoviePage.css";
+import { getThisClickedMovie } from "../api/getThisClickedMovie";
+import { getMovieCast } from "../api/getMovieCast";
+import { getSimilarMovies } from "../api/getSimilarMovies";
+import CastMember from "../components/CastMember";
+import MovieCard from "../components/MovieCard";
 
 class MoviePage extends React.Component {
   state = {
@@ -44,8 +43,6 @@ class MoviePage extends React.Component {
         });
 
         getMovieCast(this.props.match.params.id).then((cast) => {
-          // //FOR NOW, just limit the number of cast members displayed. TEMPORARY until a better solution is found
-          // const slicedCast = cast.slice(0, 7);
           this.setState({ movieCast: cast });
         });
 

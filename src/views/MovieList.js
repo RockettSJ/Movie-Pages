@@ -1,7 +1,7 @@
 import React from "react";
 import { getPopularMovies } from "../api/getPopularMovies";
 import { Link } from "react-router-dom";
-import MovieCard from "../components/MovieCard/MovieCard";
+import MovieCard from "../components/MovieCard";
 
 class PopularMovies extends React.Component {
   state = {
