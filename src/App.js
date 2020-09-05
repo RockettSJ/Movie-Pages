@@ -1,10 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import PopularMovies from "./containers/PopularMovies";
-import NowPlaying from "./containers/NowPlaying";
+import Movies from "./containers/Movies";
 import MoviePage from "./containers/MoviePage/MoviePage";
-import UpcomingMovies from "./containers/UpcomingMovies";
-import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./App.css";
 
@@ -14,12 +11,9 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="App text-light">
           <div className="min-vh-100">
-            <Header />
             <main>
               <Switch>
-                <Route path="/" exact component={PopularMovies} />
-                <Route path="/now-playing" exact component={NowPlaying} />
-                <Route path="/upcoming" exact component={UpcomingMovies} />
+                <Route path="/" exact component={Movies} />
                 <Route path="/:id" component={MoviePage} />
               </Switch>
             </main>
