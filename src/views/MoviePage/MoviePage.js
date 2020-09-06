@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getThisClickedMovie } from "../api/getThisClickedMovie";
-import { getMovieCast } from "../api/getMovieCast";
-import { getSimilarMovies } from "../api/getSimilarMovies";
-import CastMember from "../components/CastMember";
-import MovieCard from "../components/MovieCard";
+import {
+  getTheMovie,
+  getMovieCast,
+  getSimilarMovies,
+} from "./../../api/apiModule";
+import CastMember from "../../components/CastMember/CastMember";
+import MovieCard from "../../components/MovieCard/MovieCard";
 
 class MoviePage extends React.Component {
   state = {
@@ -38,7 +40,7 @@ class MoviePage extends React.Component {
         //Prevent page from automatically jumping down on some page renders
         window.scrollTo({ top: 0, behavior: "smooth" });
 
-        getThisClickedMovie(this.props.match.params.id).then((movieData) => {
+        getTheMovie(this.props.match.params.id).then((movieData) => {
           this.setState({ movieDetails: movieData });
         });
 

@@ -1,4 +1,5 @@
 import React from "react";
+import "./_moviecard.scss";
 
 const MovieCard = (props) => {
   return (
